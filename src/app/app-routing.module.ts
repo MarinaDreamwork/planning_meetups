@@ -1,3 +1,4 @@
+import { AuthGuard } from './guards/auth.guard';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AdminComponent } from './components/admin/admin.component';
@@ -6,7 +7,7 @@ import { MeetupListComponent } from './components/meetup-list/meetup-list.compon
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
-  { path: 'meetups', component: MeetupListComponent },
+  { path: 'meetups', component: MeetupListComponent, canActivate: [AuthGuard] },
   { path: 'admin', component: AdminComponent }
 ];
 
