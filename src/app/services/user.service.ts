@@ -1,4 +1,5 @@
 import { Injectable } from '@angular/core';
+import { ICurrentUser } from '../components/meetup/role.interface';
 import { User } from '../components/meetup/user.model';
 import { LocalStorageService } from './local-storage.service';
 
@@ -6,6 +7,7 @@ import { LocalStorageService } from './local-storage.service';
   providedIn: 'root'
 })
 export class UserService {
+  isAuth = false;
 
   constructor(private localStorageService: LocalStorageService) { }
 
@@ -24,11 +26,10 @@ export class UserService {
     return JSON.parse(jsonPayload);
   }
 
-  get user(): User | null {
+  get user(): ICurrentUser | null {
     const token = this.localStorageService.getToken();
     if (token) {
-      const user: User = this.parseToken(token);
-      console.log();
+      const user = this.parseToken(token);
       return user;
     } else return null;
   }

@@ -1,0 +1,30 @@
+<header>
+	<div class='header_logo-group'>
+		<div>
+			<p class='header_app-name-logo'>MeetUps</p>
+		</div>
+		<div class='header_logo-item'>
+			<img class='logo-group' src='/assets/logo.png' />
+			<img class='logo-group' src='/assets/logo2.png' />
+		</div>
+	</div>
+	<nav>
+		<ul>
+			<li>
+				<a routerLink="meetups" routerLinkActive="active">Meetups</a>
+			</li>
+			<li *ngIf='isAuth; else authorized'>
+				<a routerLink="login"><img class='icon' src="/assets/user-icon.png" /></a>
+			</li>
+			<ng-template #authorized>
+				<!-- if user has an admin role -->
+				<li>
+					<a routerLink='admin'><img class='icon' src="/assets/admin-settings-icon.png" /></a>
+				</li>
+				<li>
+					<a (click)='onLogout()'><img class='icon' src="/assets/exit-icon.png" /></a>
+				</li>
+			</ng-template>
+		</ul>
+	</nav>
+</header>
