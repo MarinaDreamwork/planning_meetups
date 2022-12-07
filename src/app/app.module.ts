@@ -10,6 +10,7 @@ import { AuthComponent } from './components/auth/auth.component';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -17,7 +18,8 @@ import { AuthInterceptor } from './interceptors/auth.interceptor';
     MeetupComponent,
     MeetupListComponent,
     AuthComponent,
-    AdminComponent
+    AdminComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,

@@ -5,11 +5,13 @@ import { User } from '../components/meetup/user.model';
 import { Router } from '@angular/router';
 import { LocalStorageService } from './local-storage.service';
 import { UserService } from './user.service';
+import { ICurrentUser, IRole } from '../components/meetup/role.interface';
 
 @Injectable()
 export class AuthService {
   baseUrl: IEnvironment['apiUrl'] = `${environment.apiUrl}/auth`;
-
+  isAuth = false;
+  isAdmin = false;
 
   constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService, private userService: UserService) { }
 
@@ -21,9 +23,7 @@ export class AuthService {
     }).subscribe(res => {
       if (res.token) {
         this.localStorageService.setToken(res.token);
-        console.log('res:', res);
-        const user = this.userService.user;
-        console.log('user', user);
+        this.isAuth = true;
         this.router.navigate(['meetups']);
       }
     })
