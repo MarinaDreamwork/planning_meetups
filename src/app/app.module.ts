@@ -8,13 +8,15 @@ import { MeetupListComponent } from './components/meetup-list/meetup-list.compon
 import { AuthService } from './services/auth.service';
 import { AuthComponent } from './components/auth/auth.component';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './components/admin/admin.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     MeetupComponent,
     MeetupListComponent,
-    AuthComponent
+    AuthComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
