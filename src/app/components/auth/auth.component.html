@@ -1,11 +1,16 @@
-<form>
+<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
 	<div>
 		<label for='email'>Введите email:</label>
-		<input type='text' #emailInput id='email' />
+		<input type='text' id='email' formControlName="email" />
 	</div>
+	<span *ngIf="onEmailFieldErrors()">{{onEmailFieldErrors()}}</span>
 	<div>
 		<label for='password'>Введите пароль:</label>
-		<input type='text' #passwordInput id='password' />
+		<input type='password' id='password' formControlName="password" />
 	</div>
-	<button (click)='login()'>Войти</button>
+	<span *ngIf="onPasswordFieldErrors()">{{onPasswordFieldErrors()}}</span>
+	<span *ngIf="serverError">ServerError: {{serverError}}</span>
+	<div>
+		<button type="submit" [disabled]="loginForm.invalid || serverError">Войти</button>
+	</div>
 </form>
