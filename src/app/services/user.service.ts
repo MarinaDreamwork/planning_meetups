@@ -30,6 +30,7 @@ export class UserService {
     const token = this.localStorageService.getToken();
     if (token) {
       const user = this.parseToken(token);
+      console.log('user', user);
       return user;
     } else return null;
   }

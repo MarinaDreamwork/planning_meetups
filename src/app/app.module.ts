@@ -12,6 +12,9 @@ import { AdminComponent } from './components/admin/admin.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { MatInputModule } from '@angular/material/input';
+import { IntroComponent } from './components/intro/intro.component';
 
 @NgModule({
   declarations: [
@@ -20,13 +23,16 @@ import { ReactiveFormsModule } from '@angular/forms';
     MeetupListComponent,
     AuthComponent,
     AdminComponent,
-    HeaderComponent
+    HeaderComponent,
+    IntroComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    BrowserAnimationsModule,
+    MatInputModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,
