@@ -1,5 +1,6 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service';
 
 
 @Component({
@@ -8,19 +9,14 @@ import { AuthService } from 'src/app/services/auth.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit {
-  @Input() isAuth: boolean = false;
 
-  constructor(private authService: AuthService) {
-    this.isAuth = this.authService.isAuth;
-    console.log('this.isAuth', this.isAuth);
-  }
+  constructor(
+    public userService: UserService,
+    private authService: AuthService) { }
 
-  ngOnInit() {
-    console.log('this.isAuth from constructor:', this.isAuth);
-  }
+  ngOnInit() { }
 
   onLogout() {
-    this.isAuth = false;
     return this.authService.logout();
   }
 
