@@ -1,16 +1,20 @@
-<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
-	<div>
-		<label for='email'>Введите email:</label>
-		<input type='text' id='email' formControlName="email" />
-	</div>
-	<span *ngIf="onEmailFieldErrors()">{{onEmailFieldErrors()}}</span>
-	<div>
-		<label for='password'>Введите пароль:</label>
-		<input type='password' id='password' formControlName="password" />
-	</div>
-	<span *ngIf="onPasswordFieldErrors()">{{onPasswordFieldErrors()}}</span>
-	<span *ngIf="serverError">ServerError: {{serverError}}</span>
-	<div>
-		<button type="submit" [disabled]="loginForm.invalid || serverError">Войти</button>
-	</div>
-</form>
+<div class="auth-wrapper">
+	<form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+		<mat-form-field class="full-width">
+			<mat-label>Введите email:</mat-label>
+			<input matInput type='text' id='email' formControlName="email" />
+			<mat-error *ngIf="onEmailFieldErrors()">{{onEmailFieldErrors()}}</mat-error>
+		</mat-form-field>
+		<mat-form-field class="full-width">
+			<mat-label>Введите пароль:</mat-label>
+			<input matInput type='password' id='password' formControlName="password" />
+			<mat-error *ngIf="onPasswordFieldErrors()">{{onPasswordFieldErrors()}}</mat-error>
+		</mat-form-field>
+		<span *ngIf="serverError">ServerError: {{serverError}}</span>
+
+		<div class="button-group">
+			<a routerLink="/introduction">How to create account?</a>
+			<button class='button auth-button' type="submit" [disabled]="loginForm.invalid || serverError">Войти</button>
+		</div>
+	</form>
+</div>
