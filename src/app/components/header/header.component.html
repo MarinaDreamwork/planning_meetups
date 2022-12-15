@@ -13,14 +13,10 @@
 			<li>
 				<a routerLink="meetups" routerLinkActive="active">Meetups</a>
 			</li>
-			<li *ngIf='isAuth; else authorized'>
+			<li *ngIf="!userService.user; else authorized">
 				<a routerLink="login"><img class='icon' src="/assets/user-icon.png" /></a>
 			</li>
 			<ng-template #authorized>
-				<!-- if user has an admin role -->
-				<li>
-					<a routerLink='admin'><img class='icon' src="/assets/admin-settings-icon.png" /></a>
-				</li>
 				<li>
 					<a (click)='onLogout()'><img class='icon' src="/assets/exit-icon.png" /></a>
 				</li>
