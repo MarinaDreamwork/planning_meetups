@@ -12,6 +12,11 @@ export class MeetupListComponent implements OnInit {
   constructor(private meetupService: MeetupService) { }
 
   ngOnInit() {
-    this.meetups = this.meetupService.meetups;
+    this.meetupService.fetchAllMeetups().subscribe(
+      data => {
+        console.log('data', data);
+        this.meetups = data
+      }
+    );
   }
 }

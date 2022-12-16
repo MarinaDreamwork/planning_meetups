@@ -1,19 +1,22 @@
-<div class='meetup-info'>
+<div class='meetup-info' [ngClass]="{completed: isCompleted}">
 	<div class='meetup-info_header'>
 		<div class='meetup-info_title'>
-			<h3>title</h3>
-			<p>... subscribers</p>
+			<h3 class='meetup-info_title-name'>{{meetup.name}}</h3>
+			<p class='meetup-info_title-subscribers'>{{meetup.users.length}} подписчик</p>
 		</div>
 		<div class='meetup-info_time'>
-			<p>date, time</p>
+			<p>{{meetup.time| date:"dd.MM.yyyy hh:mm"}}</p>
 		</div>
 	</div>
 	<div class='meetup-info_content'>
-		<p>content</p>
-		<p>status / place</p>
+		<p class="meetup-info_content-description">{{meetup.description}}</p>
+		<p class="meetup-info_content-location">{{meetup.location}}</p>
 	</div>
 	<div class='meetup-info_author-info'>
-		<p>icon <span>author name</span></p>
-		<button>&#11167;</button>
+		<p><img class='icon' src="/assets/user-icon.png" /> <span> {{meetup.owner.fio}}</span></p>
+		<div>
+			<button *ngIf="!isCompleted">Я пойду!</button>
+			<button>&#11167;</button>
+		</div>
 	</div>
 </div>

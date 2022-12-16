@@ -8,9 +8,19 @@ import { Meetup } from './meetup.model';
 })
 export class MeetupComponent implements OnInit {
   @Input() meetup!: Meetup;
+  isCompleted!: boolean;
 
   ngOnInit(): void {
+    this.isCompleted = this.isMeetupCompleted();
+  }
 
+  isMeetupCompleted() {
+    const time = new Date().getTime();
+    const meetupTime = new Date(this.meetup.time).getTime();
+    if (time - meetupTime) {
+      return true;
+    }
+    return false;
   }
 
 }

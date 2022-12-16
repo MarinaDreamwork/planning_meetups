@@ -12,6 +12,7 @@ export class Meetup {
 		public time: string,
 		public duration: number,
 		public createdBy: number,
+		public createdAt: string,
 		public owner: User,
 		public users: User[]
 	) {
