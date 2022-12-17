@@ -8,11 +8,21 @@
 			<img class='logo-group' src='/assets/logo2.png' />
 		</div>
 	</div>
-	<nav>
+	<nav class="meetups-nav">
 		<ul>
 			<li>
-				<a routerLink="meetups" routerLinkActive="active">Meetups</a>
+				<a class="meetups-nav_item" routerLink='meetups/all_meetups' routerLinkActive="active">Все митапы</a>
 			</li>
+			<li>
+				<a class="meetups-nav_item" routerLink="/meetups/my_meetups" routerLinkActive="active">Мои митапы</a>
+			</li>
+			<li *ngIf="">
+				<a class="meetups-nav_item">Пользователи</a>
+			</li>
+		</ul>
+	</nav>
+	<nav>
+		<ul>
 			<li *ngIf="!userService.user; else authorized">
 				<a routerLink="login"><img class='icon' src="/assets/user-icon.png" /></a>
 			</li>

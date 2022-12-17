@@ -1,19 +1,57 @@
-<div class='meetup-info'>
+<div class='meetup-info' [ngClass]="{completed: isCompleted}">
 	<div class='meetup-info_header'>
 		<div class='meetup-info_title'>
-			<h3>title</h3>
-			<p>... subscribers</p>
+			<h3 class='meetup-info_title-name'>{{meetup.name}}</h3>
+			<p class='meetup-info_title-subscribers'>{{meetup.users.length | correctWordEnding }}</p>
 		</div>
 		<div class='meetup-info_time'>
-			<p>date, time</p>
+			<p>{{meetup.time| date:"dd.MM.yyyy hh:mm"}}</p>
 		</div>
 	</div>
 	<div class='meetup-info_content'>
-		<p>content</p>
-		<p>status / place</p>
+		<p class="meetup-info_content-description">{{meetup.description}}</p>
+		<p *ngIf='!isCompleted' class="meetup-info_content-location"><span>Место проведения:</span> {{meetup.location}}</p>
+		<p *ngIf='isCompleted' class="meetup-info_content-completed">Проведено</p>
+	</div>
+	<div *ngIf="fullDetailed">
+		<div>
+			<p class="meetup-info_content-description">
+				<span class="meetup-info_detailed">Целевая аудитория: </span>
+				{{meetup.target_audience}}
+			</p>
+		</div>
+		<div>
+			<p class="meetup-info_content-description">
+				<span class="meetup-info_detailed">Причина посетить: </span>
+				{{meetup.reason_to_come}}
+			</p>
+		</div>
+		<div *ngIf="meetup.users.length > 0">
+			<p *ngFor="let user of meetup.users" class="meetup-info_content-description">
+				<span class="meetup-info_detailed">Участники: </span>
+				{{user.fio}}
+			</p>
+		</div>
 	</div>
 	<div class='meetup-info_author-info'>
-		<p>icon <span>author name</span></p>
-		<button>&#11167;</button>
+		<p><img class='icon' src="/assets/user-icon.png" /> <span> {{meetup.owner.fio}}</span></p>
+
+		<div>
+			<button [disabled]="isCompleted" *ngIf="!fullDetailed" (click)="onToggleOptions()">&#9660;</button>
+			<button *ngIf="fullDetailed" (click)="onOpenDetails()">&#9650;</button>
+		</div>
+
 	</div>
+	<div class='meetup-info_open-menu' *ngIf="isOpenMenu">
+		<ul>
+			<li><a [routerLink]="['/meetups/my_meetups', meetup.id, 'update']">Редактировать</a></li>
+			<li><a (click)="onOpenDetails()">Открыть подробнее...</a></li>
+			<li *ngIf="!isJoined" (click)="onJoinMeetup()"><a>Присоединиться</a></li>
+			<li *ngIf="isJoined" (click)="onDeleteJoiningMeetup()"><a>Покинуть</a></li>
+			<li><a (click)="onDeleteMeetup()">Удалить</a></li>
+		</ul>
+	</div>
+
+
+
 </div>

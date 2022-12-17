@@ -14,7 +14,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
 import { IntroComponent } from './components/intro/intro.component';
+import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
+import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
 
 @NgModule({
   declarations: [
@@ -24,7 +27,9 @@ import { IntroComponent } from './components/intro/intro.component';
     AuthComponent,
     AdminComponent,
     HeaderComponent,
-    IntroComponent
+    IntroComponent,
+    MeetupCreationComponent,
+    CorrectWordEndingPipe
   ],
   imports: [
     BrowserModule,
@@ -32,7 +37,8 @@ import { IntroComponent } from './components/intro/intro.component';
     HttpClientModule,
     ReactiveFormsModule,
     BrowserAnimationsModule,
-    MatInputModule
+    MatInputModule,
+    MatButtonModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,

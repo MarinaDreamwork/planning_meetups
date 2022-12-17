@@ -1,7 +1,16 @@
+@import '../../../styles.scss';
+
 .meetup-info {
 	border: 2px solid grey;
-	margin: 10px;
+	background: grey;
+	margin: 20px;
 	padding: 10px;
+	box-shadow: 5px 5px 5px 5px grey;
+	border-radius: 10px;
+}
+
+.completed {
+	opacity: 0.5;
 }
 
 .meetup-info_header {
@@ -13,10 +22,53 @@
 	display: flex;
 }
 
+.meetup-info_title-name {
+	font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+	color: wheat;
+	font-weight: 900;
+	letter-spacing: 1px;
+	text-shadow: 1px -1px 2px wheat;
+}
+
+.meetup-info_title-subscribers {
+	font-weight: 600;
+	color: brown;
+	margin-left: 15px;
+	padding-top: 5px;
+}
+
+.meetup-info_content-description {
+	color: $meetupStyle;
+}
+
+.meetup-info_content-completed {
+	color: brown;
+	font-weight: 800;
+	font-size: medium;
+}
+
+.meetup-info_time {
+	color: $white;
+	font-size: medium;
+	font-weight: bold;
+}
+
 .meetup-info_content,
 .meetup-info_author-info {
 	display: flex;
 	justify-content: space-between;
+}
+
+.meetup-info_author-info {
+	color: $meetupStyle;
+}
+
+.meetup-info_author-info p {
+	align-items: center;
+}
+
+.meetup-info_content-location {
+	color: $meetupStyle;
 }
 
 button {
@@ -24,6 +76,33 @@ button {
 	margin: 10px;
 	font-size: larger;
 }
+
+.meetup-info_open-menu {
+	display: flex;
+	justify-content: end;
+}
+
+// .meetup-info_open-menu ul {
+// 	border: 1px solid $white;
+// }
+
+.meetup-info_open-menu li {
+	list-style-type: none;
+	padding: 10px;
+}
+
+.meetup-info_open-menu li a {
+	text-transform: uppercase;
+	color: $white;
+}
+
+.meetup-info_detailed,
+.meetup-info_content-location span {
+	font-weight: bold;
+	color: rgb(201, 197, 197);
+}
+
+
 
 
 

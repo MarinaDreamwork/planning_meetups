@@ -1,3 +1,5 @@
+@import '../../../styles.scss';;
+
 header {
 	display: flex;
 	justify-content: space-between;
@@ -24,20 +26,19 @@ li {
 a {
 	padding: 15px;
 	text-decoration: none;
-	color: white;
+	color: $white;
 	font-weight: bold;
-	text-shadow: 1px 1px 1px white;
 	cursor: pointer;
 }
 
 a:hover {
-	color: rgb(187, 176, 207);
-	text-shadow: 1px 1px 1px rgb(187, 176, 207);
+	color: rgb(119, 65, 212);
 }
 
 .active {
-	color: rgb(92, 27, 203);
-	text-shadow: 1px 1px 1px rgb(92, 27, 203);
+	color: rgb(119, 65, 212);
+	// text-shadow: 1px 1px 1px rgb(92, 27, 203);
+	border-bottom: 3px solid rgb(119, 65, 212);
 }
 
 .header_app-name-logo {
@@ -58,4 +59,14 @@ a:hover {
 
 .icon {
 	width: 40px;
+}
+
+.meetups-nav {
+	font-size: large;
+	letter-spacing: 2px;
+}
+
+.meetups-nav_item {
+	padding-bottom: 5px;
+	margin-right: 10px;
 }
