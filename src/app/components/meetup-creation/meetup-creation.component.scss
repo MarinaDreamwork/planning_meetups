@@ -1,0 +1,54 @@
+@import '../../../styles.scss';
+
+form {
+	width: 800px;
+	margin: 50px auto;
+	padding: 50px 300px;
+	background: grey;
+	border-radius: 10px;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 30px;
+}
+
+input, textarea {
+	padding: 10px;
+	margin-left: 30px;
+	outline: none;
+	border-radius: 10px;
+	border: none;
+	box-shadow: 2px -2px 2px wheat;
+}
+
+label {
+	font-size: medium;
+	color: $white;
+}
+
+h2 {
+	text-align: center;
+	color: $white;
+	text-shadow: 1px -1.5px 1px wheat;
+}
+
+div button {
+	display: flex;
+	justify-content: center;
+	margin: 10px;
+}
+button {
+	color: $grey;
+	font-size: large;
+	background: rgb(202, 199, 199);
+	padding: 10px 15px;
+	border: none;
+	border-radius: 10px;
+}
+
+button:hover {
+	background: $white;
+}

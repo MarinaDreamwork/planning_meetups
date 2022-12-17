@@ -1,3 +1,12 @@
 <div>
-	<app-meetup *ngFor="let meetup of meetups" [meetup]="meetup"></app-meetup>
+	<!-- <p *ngIf="isLoadingMeetups; else dataMeetings">is loading...</p> -->
+	<div *ngIf="myMeetups">
+		<app-meetup *ngFor="let meetup of myMeetups" [meetup]="meetup"></app-meetup>
+	</div>
+	<div *ngIf="!myMeetups">
+		<app-meetup *ngFor="let meetup of meetups" [meetup]="meetup"></app-meetup>
+	</div>
+	<div class="button-create-meetup-wrapper">
+		<button mat-raised-button color="primary" routerLink="/meetups/my_meetups/creation">Создать митап</button>
+	</div>
 </div>

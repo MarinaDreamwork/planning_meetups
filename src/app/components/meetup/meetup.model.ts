@@ -2,6 +2,7 @@ import { User } from './user.model';
 
 export class Meetup {
 	constructor(
+		public id: number,
 		public name: string,
 		public description: string,
 		public location: string,
@@ -16,6 +17,7 @@ export class Meetup {
 		public owner: User,
 		public users: User[]
 	) {
+		this.id = id;
 		this.name = name;
 		this.description = description,
 			this.location = location,
@@ -30,3 +32,17 @@ export class Meetup {
 			this.users = users
 	}
 }
+
+export interface MeetupForm {
+	name: string | null,
+	description: string | null,
+	time: string | null,
+	duration: number | null,
+	location: string | null,
+	target_audience: string | null,
+	need_to_know: string | null,
+	will_happen: string | null,
+	reason_to_come: string | null
+}
+// Argument of type ' }>' is not assignable to parameter of type 'MeetupForm'.
+// 	Property 'name' is optional in type 'Partial<{ name: string | null | undefined; description: string | null; time: string | null; duration: number | null; location: string | null; target_audience: string | null; need_to_know: string | null; will_happen: string | null; reason_to_come: string | null; }>

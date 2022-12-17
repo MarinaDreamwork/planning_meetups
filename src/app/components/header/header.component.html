@@ -11,10 +11,10 @@
 	<nav class="meetups-nav">
 		<ul>
 			<li>
-				<a class="meetups-nav_item">Все митапы</a>
+				<a class="meetups-nav_item" routerLink='meetups/all_meetups' routerLinkActive="active">Все митапы</a>
 			</li>
 			<li>
-				<a class="meetups-nav_item">Мои митапы</a>
+				<a class="meetups-nav_item" routerLink="/meetups/my_meetups" routerLinkActive="active">Мои митапы</a>
 			</li>
 			<li *ngIf="">
 				<a class="meetups-nav_item">Пользователи</a>
@@ -23,9 +23,6 @@
 	</nav>
 	<nav>
 		<ul>
-			<li>
-				<a routerLink="meetups" routerLinkActive="active">Meetups</a>
-			</li>
 			<li *ngIf="!userService.user; else authorized">
 				<a routerLink="login"><img class='icon' src="/assets/user-icon.png" /></a>
 			</li>

@@ -1,0 +1,52 @@
+<form [formGroup]="creationMeetupForm" (ngSubmit)="onSubmit()">
+	<h2>Создание митапа:</h2>
+	<div>
+		<label>Название:</label>
+		<input formControlName="name" />
+	</div>
+	<div>
+		<div>
+			<label>Дата:</label>
+			<input type="date" formControlName="time" />
+		</div>
+		<div>
+			<label>Время:</label>
+			<input type="datetime" formControlName="timeHours" />
+		</div>
+	</div>
+	<div>
+		<label>Продолжительность:</label>
+		<input formControlName="duration" />
+	</div>
+	<div>
+		<label>Место проведения:</label>
+		<input type="text" formControlName="location" />
+	</div>
+	<div>
+		<label>Короткое описание:</label>
+		<textarea rows="3" formControlName="description"></textarea>
+	</div>
+	<div>
+		<label>Подробное описание:</label>
+		<textarea rows="5"></textarea>
+	</div>
+	<div>
+		<label>Целевая аудитория:</label>
+		<textarea rows="3" placeholder="аналитики, тестировщики, зумеры" formControlName="target_audience"></textarea>
+	</div>
+	<div>
+		<label>Что нужно знать:</label>
+		<input formControlName="need_to_know" />
+	</div>
+	<div>
+		<label>Что будет:</label>
+		<input formControlName="will_happen" />
+	</div>
+	<div>
+		<label>Причина прихода:</label>
+		<input formControlName="reason_to_come" />
+	</div>
+	<div>
+		<button type="submit">Создать митап</button>
+	</div>
+</form>
