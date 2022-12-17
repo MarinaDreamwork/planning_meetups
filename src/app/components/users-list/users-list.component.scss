@@ -1,0 +1,57 @@
+@import '../../../styles.scss';
+
+.users-list {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	margin: 20px;
+	padding: 40px;
+	background: rgb(212, 207, 207);
+}
+
+table {
+	border-collapse: collapse;
+	font-size: larger;
+}
+
+caption {
+	color: rgb(88, 87, 87);
+	font-weight: bold;
+	padding: 15px;
+}
+
+td {
+	border: 1px solid grey;
+	padding: 10px;
+	color: grey;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+	padding: 20px;
+}
+
+.users-list_create-user {
+	background:black;
+	color: $white;
+}
+
+td {
+	border: 1px solid grey;
+	padding: 10px;
+	color: grey;
+}
+
+.users-list_button-style {
+	font-weight: bolder;
+	cursor: pointer;
+}
+
+.users-list_delete {
+	color: red;
+}
+
+.users-list_edit {
+	color: green;
+}

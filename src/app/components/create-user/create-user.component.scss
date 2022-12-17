@@ -1,0 +1,37 @@
+@import '../../../styles.scss';
+
+form {
+	width: 800px;
+	margin: 50px auto;
+	padding: 50px 300px;
+	background: grey;
+	border-radius: 10px;
+}
+
+div {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	margin: 30px;
+}
+
+input, textarea {
+	padding: 10px;
+	margin-left: 30px;
+	outline: none;
+	border-radius: 10px;
+	border: none;
+	box-shadow: 2px -2px 2px wheat;
+}
+
+label {
+	font-size: medium;
+	color: $white;
+}
+
+.user-creaton_button {
+	background: wheat;
+	color: rgb(108, 41, 41);
+	border: 3px solid rgb(108, 41, 41);
+	
+}

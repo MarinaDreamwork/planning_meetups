@@ -3,6 +3,7 @@ import { Meetup } from './meetup.model';
 import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { UserService } from 'src/app/services/user.service';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-meetup',
@@ -17,7 +18,12 @@ export class MeetupComponent implements OnInit {
   isJoined = false;
   meetupParams!: { id: number | string }
 
-  constructor(private route: ActivatedRoute, private meetupService: MeetupService, private userService: UserService, private router: Router) { }
+  constructor(
+    private route: ActivatedRoute,
+    private meetupService: MeetupService,
+    private userService: UserService,
+    private router: Router,
+    private authService: AuthService) { }
 
   ngOnInit(): void {
     this.isCompleted = this.isMeetupCompleted();
@@ -54,8 +60,8 @@ export class MeetupComponent implements OnInit {
   onDeleteJoiningMeetup() {
     const isConfirmed = confirm('Вы уверены, что хотите удалить данный митап?');
     if (isConfirmed) {
-      if (this.userService.user?.id) {
-        this.meetupService.deleteJoiningMeetup({ idMeetup: this.meetup.id, idUser: this.userService.user?.id }).subscribe(data => {
+      if (this.authService.user?.id) {
+        this.meetupService.deleteJoiningMeetup({ idMeetup: this.meetup.id, idUser: this.authService.user.id }).subscribe(data => {
           this.meetup = data;
         })
       } else return;
@@ -63,8 +69,8 @@ export class MeetupComponent implements OnInit {
   }
 
   onJoinMeetup() {
-    if (this.userService.user?.id) {
-      this.meetupService.joinMeetup({ idMeetup: this.meetup.id, idUser: this.userService.user?.id }).subscribe(data => {
+    if (this.authService.user?.id) {
+      this.meetupService.joinMeetup({ idMeetup: this.meetup.id, idUser: this.authService.user?.id }).subscribe(data => {
         this.meetup = data;
         console.log('data:', data);
       })

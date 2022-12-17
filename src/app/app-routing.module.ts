@@ -7,6 +7,8 @@ import { MeetupListComponent } from './components/meetup-list/meetup-list.compon
 import { AdminGuard } from './guards/admin.guard';
 import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
@@ -15,7 +17,9 @@ const routes: Routes = [
   { path: 'meetups/my_meetups', component: MeetupListComponent },
   { path: 'meetups/my_meetups/creation', component: MeetupCreationComponent },
   { path: 'meetups/my_meetups/:id/update', component: MeetupCreationComponent },
-  { path: 'admin', component: AdminComponent, canActivate: [AdminGuard] },
+  { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
+  { path: 'users/:id/update', component: CreateUserComponent, canActivate: [AdminGuard] },
+  { path: 'users/create', component: CreateUserComponent, canActivate: [AdminGuard] },
   { path: 'introduction', component: IntroComponent },
 ];
 

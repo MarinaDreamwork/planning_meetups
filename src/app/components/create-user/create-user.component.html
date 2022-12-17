@@ -1,0 +1,17 @@
+<form [formGroup]="creationUserForm" (ngSubmit)="onSubmit()">
+	<div>
+		<label>Имя пользователя</label>
+		<input formControlName="fio" />
+	</div>
+	<div>
+		<label>Email</label>
+		<input formControlName="email" />
+	</div>
+	<div>
+		<label>Пароль</label>
+		<input formControlName="password" type="password" />
+	</div>
+	<div>
+		<button class="button user-creaton_button" type="submit">Создать пользователя</button>
+	</div>
+</form>
