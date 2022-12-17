@@ -18,6 +18,8 @@ import { MatButtonModule } from '@angular/material/button';
 import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
 import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
+import { UsersListComponent } from './components/users-list/users-list.component';
+import { CreateUserComponent } from './components/create-user/create-user.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +31,9 @@ import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
     HeaderComponent,
     IntroComponent,
     MeetupCreationComponent,
-    CorrectWordEndingPipe
+    CorrectWordEndingPipe,
+    UsersListComponent,
+    CreateUserComponent,
   ],
   imports: [
     BrowserModule,

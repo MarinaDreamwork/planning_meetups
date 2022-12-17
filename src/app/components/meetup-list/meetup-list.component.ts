@@ -3,6 +3,7 @@ import { MeetupService } from 'src/app/services/meetup.service';
 import { UserService } from 'src/app/services/user.service';
 import { Meetup } from '../meetup/meetup.model';
 import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-meetup-list',
@@ -14,7 +15,10 @@ export class MeetupListComponent implements OnInit {
   myMeetups: Meetup[] | undefined;
   isLoadingMeetups = false;
 
-  constructor(private meetupService: MeetupService, private userService: UserService, private router: Router) { }
+  constructor(
+    private meetupService: MeetupService,
+    private authService: AuthService,
+    private router: Router) { }
 
   ngOnInit() {
     this.isLoadingMeetups = this.meetupService.isLoading;
@@ -37,7 +41,7 @@ export class MeetupListComponent implements OnInit {
 
   filterMyMeetups() {
     this.myMeetups = this.meetups?.filter(meetup => {
-      return meetup.owner.id === this.userService.user?.id
+      return meetup.owner.id === this.authService.user?.id
     })
   }
 

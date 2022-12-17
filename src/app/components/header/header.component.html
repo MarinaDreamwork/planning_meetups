@@ -16,14 +16,14 @@
 			<li>
 				<a class="meetups-nav_item" routerLink="/meetups/my_meetups" routerLinkActive="active">Мои митапы</a>
 			</li>
-			<li *ngIf="">
-				<a class="meetups-nav_item">Пользователи</a>
+			<li *ngIf="isAdmin">
+				<a class="meetups-nav_item" routerLink='users' routerLinkActive="active">Пользователи</a>
 			</li>
 		</ul>
 	</nav>
 	<nav>
 		<ul>
-			<li *ngIf="!userService.user; else authorized">
+			<li *ngIf="!authService.user; else authorized">
 				<a routerLink="login"><img class='icon' src="/assets/user-icon.png" /></a>
 			</li>
 			<ng-template #authorized>

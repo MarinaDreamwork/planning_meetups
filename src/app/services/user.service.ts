@@ -1,37 +1,36 @@
+import { Observable } from 'rxjs';
+import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { ICurrentUser } from '../components/meetup/role.interface';
 import { User } from '../components/meetup/user.model';
 import { LocalStorageService } from './local-storage.service';
+import { HttpClient } from '@angular/common/http';
+import { IEnvironment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UserService {
   isAuth = false;
+  userUrl: IEnvironment['apiUrl'] = `${environment.apiUrl}/user`;
+  users!: User[] | undefined;
 
-  constructor(private localStorageService: LocalStorageService) { }
+  constructor(
+    private http: HttpClient
+  ) {
 
-  parseToken(token: string) {
-    let base64Url = token.split('.')[1];
-    let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
-    let jsonPayload = decodeURIComponent(
-      window
-        .atob(base64)
-        .split('')
-        .map(function (c) {
-          return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
-        })
-        .join('')
-    );
-    return JSON.parse(jsonPayload);
   }
 
-  get user(): ICurrentUser | null {
-    const token = this.localStorageService.getToken();
-    if (token) {
-      const user = this.parseToken(token);
-      console.log('user', user);
-      return user;
-    } else return null;
+  fetchAllUsers() {
+    return this.http.get<User[]>(this.userUrl);
   }
+
+  updateUser(updatedUser: User) {
+    return this.http.put<User>(`${this.userUrl}/${updatedUser.id}`, updatedUser).subscribe(data => console.log('update user', data));
+  }
+
+  deleteUser(id: number) {
+    return this.http.delete<User>(`${this.userUrl}/${id}`);
+  }
+
 }

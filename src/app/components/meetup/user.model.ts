@@ -1,9 +1,9 @@
 export class User {
 	constructor(
-		public id: number,
-		public email: string,
-		public password: string,
-		public fio: string
+		public email: string | null | undefined,
+		public password: string | null | undefined,
+		public fio: string | null | undefined,
+		public id?: number | undefined,
 	) {
 		this.id = id;
 		this.email = email;

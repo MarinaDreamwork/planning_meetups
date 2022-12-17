@@ -1,0 +1,25 @@
+<div class="users-list">
+	<table>
+		<caption>Пользователи:</caption>
+		<thead>
+			<td>ID пользователя</td>
+			<td>email</td>
+			<td>пароль</td>
+			<td>ФИО</td>
+			<td></td>
+			<td></td>
+		</thead>
+		<tbody *ngFor="let user of users">
+			<td>{{user.id}}</td>
+			<td>{{user.email}}</td>
+			<td>{{user.password}}</td>
+			<td>{{user.fio}}</td>
+			<td class="users-list_button-style users-list_edit" [routerLink]="[user.id, 'update']">&#9998;
+			</td>
+			<td class="users-list_button-style users-list_delete" (click)="onDeleteUser(user.id)">&#10008;</td>
+		</tbody>
+	</table>
+	<div>
+		<button class="button users-list_create-user" routerLink="create">Создать пользователя</button>
+	</div>
+</div>
