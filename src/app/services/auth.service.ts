@@ -32,6 +32,8 @@ export class AuthService {
           isAdmin ? this.isAdmin = true : this.isAdmin = false
           if (this.isAdmin) {
             this.router.navigate(['users']);
+          } else {
+            this.router.navigate(['meetups/my_meetups'])
           }
         }
       }

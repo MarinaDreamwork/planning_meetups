@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
+import { filter, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
 import { UserService } from 'src/app/services/user.service';
+import { User } from '../meetup/user.model';
 
 @Component({
   selector: 'app-create-user',
@@ -37,22 +39,50 @@ export class CreateUserComponent implements OnInit {
     })
   }
 
+  isErrorUsernameEmpty() {
+    if (this.creationUserForm.get('fio')?.hasError('required') && this.creationUserForm.get('fio')?.touched) {
+      return 'Поле Имя пользователя обязательно для заполнения';
+    } else return;
+  }
+
+  isErrorEmail() {
+    if (this.creationUserForm.get('email')?.hasError('required') && this.creationUserForm.get('email')?.touched) {
+      return 'Поле Email обязательно для заполнения';
+    } else if (this.creationUserForm.get('email')?.hasError('email') && this.creationUserForm.get('email')?.touched) {
+      return 'Неверный формат email';
+    } else return;
+  }
+
+  isErrorPasswordEmpty() {
+    if (this.creationUserForm.get('password')?.hasError('required') && this.creationUserForm.get('password')?.touched) {
+      return 'Поле Пароль обязательно для заполнения'
+    } else return;
+  }
+
+  // checkUniqueEmailNames(control: AbstractControl) {
+  //   console.log(control.value);
+  //   return this.userService.fetchAllUsers().pipe(
+
+  //     filter(users => control.value === users.map(user => {
+  //       return user.email === control.value ? { 'userNameExists': true } : null
+  //     }))
+  //   )
+  // }
+
   onSubmit() {
     const email = this.creationUserForm.get('email')?.value;
     const password = this.creationUserForm.get('password')?.value;
     const fio = this.creationUserForm.get('fio')?.value;
     if (!this.userId) {
-      return this.authService.registration({ email, password, fio })
+      const newUser = this.authService.registration({ email, password, fio });
+      this.router.navigate(['/users']);
+      return newUser;
     } else {
       if (email) {
         const updatedUser = this.userService.updateUser({ email, password, fio, id: this.userId });
         this.router.navigate(['/users']);
         return updatedUser;
       } else return;
-
     }
-
-
-    this.router.navigate(['/users']);
   }
 }

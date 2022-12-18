@@ -15,6 +15,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { MatSelectModule } from '@angular/material/select';
 import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
 import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
@@ -42,7 +43,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     ReactiveFormsModule,
     BrowserAnimationsModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSelectModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,

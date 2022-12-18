@@ -12,7 +12,7 @@ div {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	margin: 30px;
+	margin: 20px;
 }
 
 input, textarea {
@@ -40,6 +40,7 @@ div button {
 	justify-content: center;
 	margin: 10px;
 }
+
 button {
 	color: $grey;
 	font-size: large;
@@ -49,6 +50,30 @@ button {
 	border-radius: 10px;
 }
 
-button:hover {
-	background: $white;
+
+.create-meetup_name-field {
+	display: flex;
+	flex-direction: column;	
+}
+
+.create-meetup_error-name {
+	margin: 0px;
+}
+	
+// 	.form {
+//   min-width: 150px;
+//   max-width: 500px;
+//   width: 100%;
+// }
+
+// mat-form-field {
+// 	display: flex;
+// 	justify-content: center;
+// }
+
+// .form-creation-wrapper {
+
+// }
+.half-width {
+	width: 50%;
 }
