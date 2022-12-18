@@ -11,7 +11,7 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { AdminComponent } from './components/admin/admin.component';
 import { AuthInterceptor } from './interceptors/auth.interceptor';
 import { HeaderComponent } from './components/header/header.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
@@ -21,6 +21,7 @@ import { MeetupCreationComponent } from './components/meetup-creation/meetup-cre
 import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { FilterPipe } from './pipes/filter.pipe';
 
 @NgModule({
   declarations: [
@@ -35,12 +36,14 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
     CorrectWordEndingPipe,
     UsersListComponent,
     CreateUserComponent,
+    FilterPipe,
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HttpClientModule,
     ReactiveFormsModule,
+    FormsModule,
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,

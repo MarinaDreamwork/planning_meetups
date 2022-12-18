@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { MeetupService } from 'src/app/services/meetup.service';
-import { UserService } from 'src/app/services/user.service';
 import { Meetup } from '../meetup/meetup.model';
 import { Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
@@ -14,6 +13,7 @@ export class MeetupListComponent implements OnInit {
   meetups: Meetup[] | undefined;
   myMeetups: Meetup[] | undefined;
   isLoadingMeetups = false;
+  filteredValue = ''
 
   constructor(
     private meetupService: MeetupService,

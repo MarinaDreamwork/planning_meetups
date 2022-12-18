@@ -116,6 +116,13 @@ export class MeetupCreationComponent implements OnInit {
     return;
   }
 
+  isErrorAudienceEmpty() {
+    if (this.creationMeetupForm.get('target_audience')?.hasError('required') && this.creationMeetupForm.get('target_audience')?.touched) {
+      return 'Поле Целевая аудитория обязательно для заполнения';
+    }
+    return;
+  }
+
   isErrorReasonEmpty() {
     if (this.creationMeetupForm.get('reason_to_come')?.hasError('required') && this.creationMeetupForm.get('reason_to_come')?.touched) {
       return 'Поле Причина прихода обязательно для заполнения';

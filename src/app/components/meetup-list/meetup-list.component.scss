@@ -2,4 +2,28 @@
 	display: flex;
 	justify-content: flex-end;
 	padding: 20px;
+} 
+
+.input-filter-wrapper {
+	display: flex;
+	justify-content: center;
+	margin: 20px;
+	padding: 10px;
+}
+
+input {
+	width: 20%;
+	box-shadow: 2px 2px 2px grey;
+	border: 2px solid grey;
+	border-radius: 15px;
+	outline: none;
+	text-align: center;
+}
+
+::placeholder {
+	text-align: center;
+}
+
+.input_filter {
+	padding: 5px;
 }
