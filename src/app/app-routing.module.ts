@@ -12,9 +12,8 @@ import { CreateUserComponent } from './components/create-user/create-user.compon
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
-  { path: 'meetups', component: MeetupListComponent, canActivate: [AuthGuard] },
-  { path: 'meetups/all_meetups', component: MeetupListComponent },
-  { path: 'meetups/my_meetups', component: MeetupListComponent },
+  { path: 'meetups/all_meetups', component: MeetupListComponent, canActivate: [AuthGuard] },
+  { path: 'meetups/my_meetups', component: MeetupListComponent, canActivate: [AuthGuard] },
   { path: 'meetups/my_meetups/creation', component: MeetupCreationComponent },
   { path: 'meetups/my_meetups/:id/update', component: MeetupCreationComponent },
   { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },

@@ -1,5 +1,5 @@
 import { Subscription } from 'rxjs';
-import { FormGroup, FormControl, FormBuilder } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { Meetup, MeetupForm } from '../meetup/meetup.model';
@@ -25,6 +25,9 @@ export class MeetupCreationComponent implements OnInit {
     timeHours: FormControl<string | null>
   }>
   meetup!: any;
+  error = null;
+  professions = ['аналитики', 'тестировщики', 'зумеры', 'программисты']
+
   constructor(private fBuilder: FormBuilder, private meetupService: MeetupService, private router: Router, private route: ActivatedRoute) {
 
   }
@@ -52,18 +55,85 @@ export class MeetupCreationComponent implements OnInit {
 
     }
     this.creationMeetupForm = this.fBuilder.group({
-      name: [''],
-      description: [''],
-      time: [''],
-      duration: [15],
-      location: [''],
-      target_audience: [''],
-      need_to_know: [''],
-      will_happen: [''],
-      reason_to_come: [''],
-      timeHours: ['']
+      name: ['', Validators.required],
+      description: ['', Validators.required],
+      time: ['', Validators.required],
+      duration: [15, Validators.required],
+      location: ['', Validators.required],
+      target_audience: ['', Validators.required],
+      need_to_know: ['', Validators.required],
+      will_happen: ['', Validators.required],
+      reason_to_come: ['', Validators.required],
+      timeHours: ['', Validators.required]
     })
   }
+
+  isErrorNameEmpty() {
+    if (this.creationMeetupForm.get('name')?.hasError('required') && this.creationMeetupForm.get('name')?.touched) {
+      return 'Поле Название обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorDateEmpty() {
+    if (this.creationMeetupForm.get('time')?.hasError('required') && this.creationMeetupForm.get('time')?.touched) {
+      return 'Поле Дата встречи обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorTimeEmpty() {
+    if (this.creationMeetupForm.get('timeHours')?.hasError('required') && this.creationMeetupForm.get('timeHours')?.touched) {
+      return 'Поле Время встречи обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorLocationEmpty() {
+    if (this.creationMeetupForm.get('location')?.hasError('required') && this.creationMeetupForm.get('location')?.touched) {
+      return 'Поле Место проведения обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorDescriptionEmpty() {
+    if (this.creationMeetupForm.get('description')?.hasError('required') && this.creationMeetupForm.get('description')?.touched) {
+      return 'Поле Описание обязательно для заполнения';
+    }
+    return;
+  }
+  isErrorNeedEmpty() {
+    if (this.creationMeetupForm.get('need_to_know')?.hasError('required') && this.creationMeetupForm.get('need_to_know')?.touched) {
+      return 'Поле Что необходимо знать обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorHappendEmpty() {
+    if (this.creationMeetupForm.get('will_happen')?.hasError('required') && this.creationMeetupForm.get('will_happen')?.touched) {
+      return 'Поле Что будет обязательно для заполнения';
+    }
+    return;
+  }
+
+  isErrorReasonEmpty() {
+    if (this.creationMeetupForm.get('reason_to_come')?.hasError('required') && this.creationMeetupForm.get('reason_to_come')?.touched) {
+      return 'Поле Причина прихода обязательно для заполнения';
+    }
+    return;
+  }
+
+  onFieldErrors() {
+    const touched = this.creationMeetupForm.get('duration')?.touched;
+    const isNameEmpty = this.creationMeetupForm.get('duration')?.hasError('required') && touched;
+    const isDurationEmptyField = this.creationMeetupForm.get('duration')?.hasError('required') && touched;
+    if (isDurationEmptyField) {
+      return 'Поле Продолжительность обязательно для заполнения'
+    } else return;
+
+  }
+
+
 
   onSubmit() {
     const formData: any = this.creationMeetupForm.value;

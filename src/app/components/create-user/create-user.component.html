@@ -1,17 +1,27 @@
 <form [formGroup]="creationUserForm" (ngSubmit)="onSubmit()">
 	<div>
-		<label>Имя пользователя</label>
-		<input formControlName="fio" />
+		<mat-form-field class="partial-width">
+			<mat-label>Имя пользователя:</mat-label>
+			<input matInput formControlName="fio" />
+			<mat-error *ngIf="isErrorUsernameEmpty()">{{isErrorUsernameEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Email</label>
-		<input formControlName="email" />
+		<mat-form-field class="partial-width">
+			<mat-label>Email:</mat-label>
+			<input matInput formControlName="email" />
+			<mat-error *ngIf="isErrorEmail()">{{isErrorEmail()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Пароль</label>
-		<input formControlName="password" type="password" />
+		<mat-form-field class="partial-width">
+			<mat-label>Пароль:</mat-label>
+			<input matInput formControlName="password" type="password" />
+			<mat-error *ngIf="isErrorPasswordEmpty()">{{isErrorPasswordEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<button class="button user-creaton_button" type="submit">Создать пользователя</button>
+		<button class="button user-creaton_button" type="submit" [disabled]="creationUserForm.invalid">Создать
+			пользователя</button>
 	</div>
 </form>

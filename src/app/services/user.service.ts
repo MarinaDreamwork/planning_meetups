@@ -1,9 +1,6 @@
-import { Observable } from 'rxjs';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { ICurrentUser } from '../components/meetup/role.interface';
 import { User } from '../components/meetup/user.model';
-import { LocalStorageService } from './local-storage.service';
 import { HttpClient } from '@angular/common/http';
 import { IEnvironment } from 'src/environments/environment';
 
@@ -17,9 +14,7 @@ export class UserService {
 
   constructor(
     private http: HttpClient
-  ) {
-
-  }
+  ) { }
 
   fetchAllUsers() {
     return this.http.get<User[]>(this.userUrl);

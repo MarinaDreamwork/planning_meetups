@@ -15,23 +15,13 @@ div {
 	margin: 30px;
 }
 
-input, textarea {
-	padding: 10px;
-	margin-left: 30px;
-	outline: none;
-	border-radius: 10px;
-	border: none;
-	box-shadow: 2px -2px 2px wheat;
-}
-
-label {
-	font-size: medium;
-	color: $white;
-}
-
 .user-creaton_button {
 	background: wheat;
 	color: rgb(108, 41, 41);
 	border: 3px solid rgb(108, 41, 41);
 	
+}
+
+.partial-width {
+	width: 70%;
 }

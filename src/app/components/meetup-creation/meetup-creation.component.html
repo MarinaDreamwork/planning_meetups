@@ -1,52 +1,80 @@
-<form [formGroup]="creationMeetupForm" (ngSubmit)="onSubmit()">
+<form [formGroup]="creationMeetupForm" (ngSubmit)="onSubmit()" class="form">
 	<h2>Создание митапа:</h2>
 	<div>
-		<label>Название:</label>
-		<input formControlName="name" />
+		<mat-form-field class="half-width">
+			<mat-label>Название:</mat-label>
+			<input matInput formControlName="name" />
+			<mat-error *ngIf="isErrorNameEmpty()">{{isErrorNameEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
+
 	<div>
 		<div>
-			<label>Дата:</label>
-			<input type="date" formControlName="time" />
+			<mat-form-field class="full-width">
+				<mat-label>Дата встречи:</mat-label>
+				<input matInput formControlName="time" type="date" />
+				<mat-error *ngIf="isErrorDateEmpty()">{{isErrorDateEmpty()}}</mat-error>
+			</mat-form-field>
 		</div>
 		<div>
-			<label>Время:</label>
-			<input type="datetime" formControlName="timeHours" />
+			<mat-form-field class="full-width">
+				<mat-label>Время встречи:</mat-label>
+				<input matInput formControlName="timeHours" type="time" />
+				<mat-error *ngIf="isErrorTimeEmpty()">{{isErrorTimeEmpty()}}</mat-error>
+			</mat-form-field>
 		</div>
 	</div>
 	<div>
-		<label>Продолжительность:</label>
-		<input formControlName="duration" />
+		<mat-form-field class="half-width">
+			<mat-label>Продолжительность, мин:</mat-label>
+			<input matInput formControlName="duration" />
+			<mat-error *ngIf="onFieldErrors()">{{onFieldErrors()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Место проведения:</label>
-		<input type="text" formControlName="location" />
+		<mat-form-field class="half-width">
+			<mat-label>Место проведения:</mat-label>
+			<input matInput formControlName="location" />
+			<mat-error *ngIf="isErrorLocationEmpty()">{{isErrorLocationEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Короткое описание:</label>
-		<textarea rows="3" formControlName="description"></textarea>
+		<mat-form-field class="half-width">
+			<mat-label>Описание:</mat-label>
+			<textarea matInput rows="3" formControlName="description"></textarea>
+			<mat-error *ngIf="isErrorDescriptionEmpty()">{{isErrorDescriptionEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Подробное описание:</label>
-		<textarea rows="5"></textarea>
+		<mat-form-field appearance="fill" class="half-width">
+			<mat-label>Целевая аудитория:</mat-label>
+			<mat-select formControlName="target_audience" multiple>
+				<mat-option *ngFor="let profession of professions" [value]="profession">{{profession}}</mat-option>
+			</mat-select>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Целевая аудитория:</label>
-		<textarea rows="3" placeholder="аналитики, тестировщики, зумеры" formControlName="target_audience"></textarea>
+		<mat-form-field class="half-width">
+			<mat-label>Что нужно знать:</mat-label>
+			<input matInput formControlName="need_to_know" />
+			<mat-error *ngIf="isErrorNeedEmpty()">{{isErrorNeedEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Что нужно знать:</label>
-		<input formControlName="need_to_know" />
+		<mat-form-field class="half-width">
+			<mat-label>Что будет:</mat-label>
+			<input matInput formControlName="will_happen" />
+			<mat-error *ngIf="isErrorHappendEmpty()">{{isErrorHappendEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Что будет:</label>
-		<input formControlName="will_happen" />
+		<mat-form-field class="half-width">
+			<mat-label>Причина прихода:</mat-label>
+			<input matInput formControlName="reason_to_come" />
+			<mat-error *ngIf="isErrorReasonEmpty()">{{isErrorReasonEmpty()}}</mat-error>
+		</mat-form-field>
 	</div>
 	<div>
-		<label>Причина прихода:</label>
-		<input formControlName="reason_to_come" />
-	</div>
-	<div>
-		<button type="submit">Создать митап</button>
+		<button type="submit" [disabled]="creationMeetupForm.invalid">Создать митап</button>
 	</div>
 </form>
