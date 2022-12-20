@@ -27,31 +27,41 @@ export class MeetupCreationComponent implements OnInit {
   meetup!: any;
   error = null;
   professions = ['аналитики', 'тестировщики', 'зумеры', 'программисты']
+  title = 'Создание митапа:';
+  buttonDescription = 'Создать митап';
+  idParam = Number(this.route.snapshot.params['id'])
 
   constructor(private fBuilder: FormBuilder, private meetupService: MeetupService, private router: Router, private route: ActivatedRoute) {
 
   }
   ngOnInit() {
     if (this.router.url.includes('update')) {
-      const idParam = Number(this.route.snapshot.params['id']);
-      this.meetup = this.meetupService.getMeetupById(idParam);
-      console.log('idParam', idParam);
-      console.log('this.meetup', this.meetup);
-      if (this.meetup) {
+      this.title = 'Изменение митапа:';
+      this.buttonDescription = 'Изменить митап';
+      //const idParam = Number(this.route.snapshot.params['id']);
+
+      this.meetup = this.meetupService.getMeetupById(this.idParam).subscribe(meetup => {
+        const commonDateInfo = meetup[0].time;
+
+        const day = this.getDayFormat(commonDateInfo);
+        const time = this.getTimeFormat(commonDateInfo)
+
         this.creationMeetupForm = this.fBuilder.group({
-          name: [`${this.meetup[0].name}`],
-          description: [this.meetup[0].description],
-          time: [this.meetup[0].time],
-          duration: [this.meetup[0].duration],
-          location: [this.meetup[0].location],
-          target_audience: [this.meetup[0].target_audience],
-          need_to_know: [this.meetup[0].need_to_know],
-          will_happen: [this.meetup[0].will_happen],
-          reason_to_come: [this.meetup[0].reason_to_come],
-          timeHours: ['']
+          name: [`${meetup[0].name}`],
+          description: [meetup[0].description],
+          time: [day],
+          duration: [meetup[0].duration],
+          location: [meetup[0].location],
+          target_audience: [meetup[0].target_audience],
+          need_to_know: [meetup[0].need_to_know],
+          will_happen: [meetup[0].will_happen],
+          reason_to_come: [meetup[0].reason_to_come],
+          timeHours: [time]
         })
-      }
-      console.log('creationMeetupForm', this.creationMeetupForm);
+      });
+
+
+    } else {
 
     }
     this.creationMeetupForm = this.fBuilder.group({
@@ -132,7 +142,6 @@ export class MeetupCreationComponent implements OnInit {
 
   onFieldErrors() {
     const touched = this.creationMeetupForm.get('duration')?.touched;
-    const isNameEmpty = this.creationMeetupForm.get('duration')?.hasError('required') && touched;
     const isDurationEmptyField = this.creationMeetupForm.get('duration')?.hasError('required') && touched;
     if (isDurationEmptyField) {
       return 'Поле Продолжительность обязательно для заполнения'
@@ -140,24 +149,54 @@ export class MeetupCreationComponent implements OnInit {
 
   }
 
+  getDayFormat(dateString: string) {
+    const year = new Date(dateString).getFullYear();
+    const month = new Date(dateString).getMonth() + 1;
+    const day = new Date(dateString).getDate();
+    return `${year}-${month}-${day}`;
+  }
 
+  getTimeFormat(dateString: string) {
+    const hours = new Date(dateString).getHours();
+    const min = new Date(dateString).getMinutes();
+    return `${hours}:${min}`;
+  }
 
   onSubmit() {
     const formData: any = this.creationMeetupForm.value;
     const updatedFormData = {
       name: formData.name,
       description: formData.description,
-      time: formData.time + ' ' + formData.timeHours,
+      time: formData.time + 'T' + formData.timeHours + ':00.000Z',
       duration: Number(formData.duration),
       location: formData.location,
       target_audience: formData.target_audience,
       need_to_know: formData.need_to_know,
       will_happen: formData.will_happen,
-      reason_to_come: formData.reason_to_come,
+      reason_to_come: formData.reason_to_come
     }
     console.log(updatedFormData);
-    this.meetupService.addMeetup(updatedFormData);
-    this.router.navigate(['/meetups/my_meetups']);
+
+    if (this.idParam) {
+      const updatedData = this.meetupService.updateMeetup(this.idParam, updatedFormData).subscribe(elem => {
+        return this.meetupService.updateSubject.next(elem);
+      });
+      this.router.navigate(['/meetups/my_meetups']);
+      return updatedData;
+
+    } else {
+      const addedData = this.meetupService.addMeetup(updatedFormData).subscribe((data: Meetup) => {
+        console.log('data from server', data);
+        return this.meetupService.createSubject.next(data)
+      });
+      //
+      this.router.navigate(['/meetups/all_meetups']);
+      console.log('added', addedData);
+      return addedData;
+    }
+
+
+
   }
 
 }

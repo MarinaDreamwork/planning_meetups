@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IEnvironment } from 'src/environments/environment';
 import { Meetup, MeetupForm } from '../components/meetup/meetup.model';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, filter, tap, map, Subject } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -12,8 +12,16 @@ export class MeetupService {
   meetups: Meetup[] | undefined;
   meetUpUrl: IEnvironment['apiUrl'] = `${environment.apiUrl}/meetup`;
   isLoading = false;
+  updateSubject = new Subject();
+  createSubject = new Subject();
+  deleteSubject = new Subject();
+  //meetupDeleteSbject = new Subject();
 
   constructor(private http: HttpClient) { }
+
+  ngOnInit() {
+
+  }
 
   fetchAllMeetups() {
     this.isLoading = true;
@@ -21,19 +29,16 @@ export class MeetupService {
   }
 
   addMeetup(formData: MeetupForm) {
-    return this.http.post<Meetup>(this.meetUpUrl, formData).subscribe(data => {
-      this.meetups?.push(data);
-    });
+    return this.http.post<Meetup>(this.meetUpUrl, formData);
   }
-
 
   joinMeetup(data: { idMeetup: number, idUser: number }) {
     return this.http.put<Meetup>(this.meetUpUrl, data)
   }
 
-  // updateMeetup(id, updatedMeetup) {
-  //   return this.http.put(this.meetUpUrl)
-  // }
+  updateMeetup(id: number, updatedMeetup: MeetupForm) {
+    return this.http.put(`${this.meetUpUrl}/${id}`, updatedMeetup);
+  }
 
   deleteJoiningMeetup(data: { idMeetup: number, idUser: number }) {
     return this.http.delete<Meetup>(this.meetUpUrl, { body: data });
@@ -43,15 +48,9 @@ export class MeetupService {
     return this.http.delete<Meetup>(`${this.meetUpUrl}/${meetupId}`);
   }
 
-  onClearMeetup(id: number) {
-    this.deleteMeetup(id).subscribe(data => {
-      return this.meetups?.filter(meetup => meetup.id === data.id);
-    })
-  }
   getMeetupById(id: number) {
-    return this.fetchAllMeetups().subscribe(data => {
-      return data.filter(elem => elem.id === id);
-    });
-
+    return this.fetchAllMeetups().pipe(
+      map(el => el.filter(el => el.id === id))
+    )
   }
 }
