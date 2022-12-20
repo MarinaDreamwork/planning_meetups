@@ -4,7 +4,6 @@ import { Component, OnInit } from '@angular/core';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { Meetup, MeetupForm } from '../meetup/meetup.model';
 import { ActivatedRoute, Router } from '@angular/router';
-import { User } from '../meetup/user.model';
 
 @Component({
   selector: 'app-meetup-creation',

@@ -11,6 +11,21 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	cursor: pointer;
 }
 
+li {
+	list-style-type: none;
+}
+
+a {
+	text-decoration: none;
+
+}
+
+table {
+	border-collapse: collapse;
+	font-size: larger;
+}
+
+
 $grey: grey;
 $meetupStyle: rgb(212, 207, 199);
 $white: white;
