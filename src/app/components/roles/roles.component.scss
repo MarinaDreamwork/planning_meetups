@@ -1,0 +1,35 @@
+form {
+	display: flex;
+	flex-direction: column;
+	margin: 20px;
+}
+
+label, button {
+	width: 50%;
+	margin: 10px;
+}
+
+button {
+	background: rgb(130, 238, 132);
+	border: none;
+	border-radius: 10px;
+
+	padding: 10px 15px;
+	font-size: medium;
+	font-weight: 700;
+	color: rgb(6, 131, 71);
+}
+
+.delete-role,
+.change-role {
+	cursor: pointer;
+	font-size: large;
+}
+
+.delete-role {
+	color: red;
+}
+
+.change-role {
+	color: green;
+}

@@ -15,7 +15,8 @@ export class CreateUserComponent implements OnInit {
   creationUserForm!: FormGroup<{
     fio: FormControl<string | null>,
     email: FormControl<string | null>,
-    password: FormControl<string | null>
+    password: FormControl<string | null>,
+    roles: FormControl<string[] | null>
   }>
   userId!: number | null;
 
@@ -35,7 +36,8 @@ export class CreateUserComponent implements OnInit {
     this.creationUserForm = this.fBuilder.group({
       fio: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
-      password: ['', Validators.required]
+      password: ['', Validators.required],
+      roles: [['']]
     })
   }
 
@@ -74,12 +76,18 @@ export class CreateUserComponent implements OnInit {
     const password = this.creationUserForm.get('password')?.value;
     const fio = this.creationUserForm.get('fio')?.value;
     if (!this.userId) {
-      const newUser = this.authService.registration({ email, password, fio });
+      const newUser = this.authService.registration({ email, password, fio }).subscribe(newUser => {
+        const { token } = newUser;
+        return this.authService.createUserSubject.next(token);
+      });
       this.router.navigate(['/users']);
       return newUser;
     } else {
       if (email) {
-        const updatedUser = this.userService.updateUser({ email, password, fio, id: this.userId });
+        const updatedUser = this.userService.updateUser({ email, password, fio, id: this.userId }).subscribe(updatedUser => {
+          console.log('updUser', updatedUser);
+          return this.authService.createUserSubject.next(updatedUser)
+        });
         this.router.navigate(['/users']);
         return updatedUser;
       } else return;

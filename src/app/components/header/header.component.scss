@@ -10,6 +10,36 @@ header {
 	box-shadow: 0px 4px 4px grey;
 }
 
+@media (max-width: 767.98px) {
+	header{
+		box-shadow: 0px 2px 2px $grey;
+		justify-content: center;
+	}
+	div>.header_app-name-logo {
+		font-size: 30px;
+		line-height: 30px;
+		margin: 20px;
+	}
+	.header_logo-item {
+	margin: 0px !important;
+}
+.logo-group {
+	width: 100px;
+	padding: 2px !important;
+}
+.meetups-nav {
+	font-size: normal;
+	letter-spacing: 2px;
+}
+.icon {
+	width: 20px !important;
+}
+a {
+	font-size: small;
+}
+
+}
+
 .header_logo-group {
 	display: flex;
 }

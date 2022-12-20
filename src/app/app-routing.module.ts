@@ -9,6 +9,8 @@ import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { RolesComponent } from './components/roles/roles.component';
 
 const routes: Routes = [
   { path: 'login', component: AuthComponent },
@@ -16,10 +18,14 @@ const routes: Routes = [
   { path: 'meetups/my_meetups', component: MeetupListComponent, canActivate: [AuthGuard] },
   { path: 'meetups/my_meetups/creation', component: MeetupCreationComponent },
   { path: 'meetups/my_meetups/:id/update', component: MeetupCreationComponent },
-  { path: 'users', component: UsersListComponent, canActivate: [AdminGuard] },
-  { path: 'users/:id/update', component: CreateUserComponent, canActivate: [AdminGuard] },
-  { path: 'users/create', component: CreateUserComponent, canActivate: [AdminGuard] },
-  { path: 'introduction', component: IntroComponent },
+  { path: 'admin_dashboard', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  { path: 'admin_dashboard/users', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+  // { path: 'admin_dashboard', component: UsersListComponent, canActivate: [AdminGuard] },
+  { path: 'admin_dashboard/users/create', component: CreateUserComponent, canActivate: [AdminGuard] },
+  { path: 'admin_dashboard/users/:id/update', component: CreateUserComponent, canActivate: [AdminGuard] },
+  { path: 'admin_dashboard/roles', component: AdminDashboardComponent, canActivate: [AdminGuard] },
+
+  { path: 'introduction', component: IntroComponent }
 ];
 
 @NgModule({

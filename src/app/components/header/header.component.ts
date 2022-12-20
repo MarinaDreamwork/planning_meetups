@@ -20,7 +20,7 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.isAdmin = this.router.url.includes('users');
+    this.isAdmin = this.router.url.includes('admin_dashboard');
   }
 
   onLogout() {

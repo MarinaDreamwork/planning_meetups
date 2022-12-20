@@ -1,0 +1,23 @@
+<section class="adminDashboard-section">
+	<div class="admin_nav">
+		<ul>
+			<li>
+				<a routerLink="/admin_dashboard/users">Пользователи</a>
+			</li>
+			<li>
+				<a routerLink="/admin_dashboard/roles">Роли пользователей</a>
+			</li>
+		</ul>
+	</div>
+	<div class="admin_output">
+
+		<div *ngIf="route === ''">
+			<h2>Добрый день, уважаемый администратор </h2>
+			<p>Сегодня: {{day}}</p>
+
+		</div>
+
+		<app-users-list *ngIf="route === 'users'"></app-users-list>
+		<app-roles *ngIf="route === 'roles'"></app-roles>
+	</div>
+</section>

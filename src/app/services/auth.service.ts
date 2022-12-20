@@ -15,6 +15,7 @@ export class AuthService {
   isAdmin = false;
   isUserCreated = false;
   error = new Subject<string>();
+  createUserSubject = new Subject();
 
   constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService, private userService: UserService) { }
 
@@ -31,7 +32,7 @@ export class AuthService {
           const isAdmin = this.checkIsAdmin(currentUserRole);
           isAdmin ? this.isAdmin = true : this.isAdmin = false
           if (this.isAdmin) {
-            this.router.navigate(['users']);
+            this.router.navigate(['admin_dashboard']);
           } else {
             this.router.navigate(['meetups/my_meetups'])
           }
@@ -52,13 +53,14 @@ export class AuthService {
   }
 
   registration(data: User) {
-    return this.http.post<{ token: string }>(`${this.authUrl}/registration`, data).subscribe(data => {
-      if (data.token) {
-        console.log('userService.user', this.user);
-        // распарсить данные и добавить к массиву пользователей
-        return this.isUserCreated = true;
-      } return;
-    });
+    return this.http.post<{ token: string }>(`${this.authUrl}/registration`, data)
+    // .subscribe(data => {
+    //   if (data.token) {
+    //     console.log('userService.user', this.user);
+    //     // распарсить данные и добавить к массиву пользователей
+    //     return this.isUserCreated = true;
+    //   } return;
+    // });
   }
   parseToken(token: string) {
     let base64Url = token.split('.')[1];

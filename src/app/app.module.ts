@@ -24,6 +24,8 @@ import { UsersListComponent } from './components/users-list/users-list.component
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
+import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
+import { RolesComponent } from './components/roles/roles.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { SortPipe } from './pipes/sort.pipe';
     CreateUserComponent,
     FilterPipe,
     SortPipe,
+    AdminDashboardComponent,
+    RolesComponent,
   ],
   imports: [
     BrowserModule,

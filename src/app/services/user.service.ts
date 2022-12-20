@@ -20,8 +20,9 @@ export class UserService {
     return this.http.get<User[]>(this.userUrl);
   }
 
+
   updateUser(updatedUser: User) {
-    return this.http.put<User>(`${this.userUrl}/${updatedUser.id}`, updatedUser).subscribe(data => console.log('update user', data));
+    return this.http.put<User>(`${this.userUrl}/${updatedUser.id}`, updatedUser);
   }
 
   deleteUser(id: number) {
