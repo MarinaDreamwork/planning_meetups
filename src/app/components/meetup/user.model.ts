@@ -1,5 +1,13 @@
+export interface UserRole {
+	id: number,
+	userId: number,
+	roleId: number,
+	createdAt: string,
+	updatedAt: string
+}
+
 export interface Role {
-	UserRole: { id: number, userId: number, roleId: number, createdAt: string, updatedAt: string },
+	UserRole: UserRole,
 	createdAt: string,
 	id: number,
 	name: string,

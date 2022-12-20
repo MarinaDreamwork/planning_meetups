@@ -1,3 +1,4 @@
+import { Role, UserRole } from './../components/meetup/user.model';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { User } from '../components/meetup/user.model';
@@ -27,6 +28,14 @@ export class UserService {
 
   deleteUser(id: number) {
     return this.http.delete<User>(`${this.userUrl}/${id}`);
+  }
+
+  addRole(data: { name: string, userId: number }) {
+    return this.http.put<UserRole>(`${this.userUrl}/role`, data);
+  }
+
+  addRoles(data: { names: string[], userId: number }) {
+    return this.http.post(`${this.userUrl}/role`, data);
   }
 
 }

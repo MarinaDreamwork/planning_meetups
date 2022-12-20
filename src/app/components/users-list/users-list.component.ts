@@ -17,8 +17,9 @@ export class UsersListComponent implements OnInit {
       this.users = data;
     });
     this.authService.createUserSubject.subscribe((data: any) => {
+      console.log('data from creation', data);
       return this.userService.fetchAllUsers().subscribe(users => {
-        console.log('users', users);
+        //console.log('users', users);
         this.users = users;
       })
 

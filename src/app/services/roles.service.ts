@@ -2,6 +2,7 @@ import { Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment, IEnvironment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
+import { UserRole } from '../components/meetup/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,6 @@ export class RolesService {
   rolesSubject = new Subject<{ name: string }>();
   updateRoleSubject = new Subject<{ oldName: string, newName: string }>();
   deleteRoleSubject = new Subject<{ name: string }>();
-
 
   constructor(private http: HttpClient) { }
 

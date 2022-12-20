@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, FormBuilder, Validators, AbstractControl } from '@angular/forms';
+import { FormGroup, FormControl, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
-import { filter, map } from 'rxjs';
 import { AuthService } from 'src/app/services/auth.service';
+import { RolesService } from 'src/app/services/roles.service';
 import { UserService } from 'src/app/services/user.service';
-import { User } from '../meetup/user.model';
 
 @Component({
   selector: 'app-create-user',
@@ -19,17 +18,24 @@ export class CreateUserComponent implements OnInit {
     roles: FormControl<string[] | null>
   }>
   userId!: number | null;
+  roles = ['ADMIN', 'USER'];
 
   constructor(
     private fBuilder: FormBuilder,
     private router: Router,
     private authService: AuthService,
     private route: ActivatedRoute,
+    private rolesService: RolesService,
     private userService: UserService) { }
 
   ngOnInit() {
     const userId = this.route.snapshot?.params['id'];
     this.userId = userId;
+    // this.rolesService.fetchAllRoles().subscribe(roles => {
+    //   if (this.roles) {
+    //     this.roles = roles
+    //   }
+    // })
     if (userId) {
       // get userById && initial value of that user
     }
@@ -37,7 +43,7 @@ export class CreateUserComponent implements OnInit {
       fio: ['', Validators.required],
       email: ['', [Validators.required, Validators.email]],
       password: ['', Validators.required],
-      roles: [['']]
+      roles: [this.roles]
     })
   }
 
@@ -75,13 +81,30 @@ export class CreateUserComponent implements OnInit {
     const email = this.creationUserForm.get('email')?.value;
     const password = this.creationUserForm.get('password')?.value;
     const fio = this.creationUserForm.get('fio')?.value;
+    const roles = this.creationUserForm.get('roles')?.value;
+
+    console.log('value roles', roles);
     if (!this.userId) {
       const newUser = this.authService.registration({ email, password, fio }).subscribe(newUser => {
         const { token } = newUser;
+        const user = this.authService.parseToken(token);
+        console.log('user from creation user', user);
+        // распарсить токен и вытащить оттуда id и заменить this.userId
+        if (roles?.length && roles?.length === 1) {
+          // распарсим и отправим put /user/role body {name: roles[0], userId: user.id}
+          return this.userService.addRole({ name: roles[0], userId: user.id }).subscribe(data => console.log('add role', data))
+        } else if (roles?.length && roles?.length > 1) {
+
+          return this.userService.addRoles({ names: roles!, userId: user.id }).subscribe(data => {
+            console.log('add rolES', data);
+          })
+          // POST /user/role body - {names: roles, userId: user.id}
+        }
         return this.authService.createUserSubject.next(token);
       });
-      this.router.navigate(['/users']);
+      this.router.navigate(['/admin_dashboard/users']);
       return newUser;
+
     } else {
       if (email) {
         const updatedUser = this.userService.updateUser({ email, password, fio, id: this.userId }).subscribe(updatedUser => {

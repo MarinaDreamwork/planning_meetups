@@ -28,7 +28,6 @@ export class RolesComponent implements OnInit {
     });
 
     this.rolesService.updateRoleSubject.subscribe(changes => {
-      console.log('CHANGES', changes);
       return this.rolesService.updateRoleByName(changes).subscribe((updatedData: any) => {
         console.log('updatedData', updatedData);
         const index = this.roles?.findIndex(upd => upd.id === updatedData.id);
