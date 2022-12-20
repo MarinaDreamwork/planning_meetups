@@ -34,6 +34,7 @@ export class Meetup {
 }
 
 export interface MeetupForm {
+	id?: number | null,
 	name: string | null,
 	description: string | null,
 	time: string | null,

@@ -3,13 +3,18 @@
 	<div class="input-filter-wrapper">
 		<input [(ngModel)]="filteredValue" type='text' class="input_filter"
 			placeholder="Поиск по названию, описанию или автору" />
+		<p>
+			<span>Сортировка по дате</span>
+			<mat-icon *ngIf="sortedBy === 'asc'" (click)="toggleSort()">keyboard_arrow_down</mat-icon>
+			<mat-icon *ngIf="sortedBy === 'desc'" (click)="toggleSort()">keyboard_arrow_up</mat-icon>
+		</p>
 	</div>
 
 	<div *ngIf="myMeetups">
-		<app-meetup *ngFor="let meetup of myMeetups | filter:filteredValue" [meetup]="meetup"></app-meetup>
+		<app-meetup *ngFor="let meetup of myMeetups | sort:sortedBy |filter:filteredValue" [meetup]="meetup"></app-meetup>
 	</div>
 	<div *ngIf="!myMeetups">
-		<app-meetup *ngFor="let meetup of meetups | filter:filteredValue" [meetup]="meetup"></app-meetup>
+		<app-meetup *ngFor="let meetup of meetups | sort:sortedBy | filter:filteredValue" [meetup]="meetup"></app-meetup>
 	</div>
 	<div class="button-create-meetup-wrapper">
 		<button mat-raised-button color="primary" routerLink="/meetups/my_meetups/creation">Создать митап</button>

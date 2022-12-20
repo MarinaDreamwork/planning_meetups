@@ -16,12 +16,14 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
+import { MatIconModule } from '@angular/material/icon';
 import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
 import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
 import { UsersListComponent } from './components/users-list/users-list.component';
 import { CreateUserComponent } from './components/create-user/create-user.component';
 import { FilterPipe } from './pipes/filter.pipe';
+import { SortPipe } from './pipes/sort.pipe';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { FilterPipe } from './pipes/filter.pipe';
     UsersListComponent,
     CreateUserComponent,
     FilterPipe,
+    SortPipe,
   ],
   imports: [
     BrowserModule,
@@ -47,7 +50,8 @@ import { FilterPipe } from './pipes/filter.pipe';
     BrowserAnimationsModule,
     MatInputModule,
     MatButtonModule,
-    MatSelectModule
+    MatSelectModule,
+    MatIconModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,

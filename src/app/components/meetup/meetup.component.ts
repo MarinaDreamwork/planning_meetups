@@ -4,6 +4,7 @@ import { ActivatedRoute, Params, Router } from '@angular/router';
 import { MeetupService } from 'src/app/services/meetup.service';
 import { UserService } from 'src/app/services/user.service';
 import { AuthService } from 'src/app/services/auth.service';
+import { filter, map } from 'rxjs';
 
 @Component({
   selector: 'app-meetup',
@@ -15,7 +16,7 @@ export class MeetupComponent implements OnInit {
   isCompleted!: boolean;
   isOpenMenu = false;
   fullDetailed = false;
-  isJoined = false;
+  isJoined!: boolean; //false
   meetupParams!: { id: number | string }
 
   constructor(
@@ -35,6 +36,10 @@ export class MeetupComponent implements OnInit {
       this.meetupParams.id = params['id'];
       console.log(params['id']);
     })
+    if (this.meetup?.users?.length) {
+      this.isJoined = this.meetup?.users?.length > 0;
+    }
+
   }
 
   isMeetupCompleted() {
@@ -45,7 +50,6 @@ export class MeetupComponent implements OnInit {
     }
     return false;
   }
-
 
   onToggleOptions() {
     this.isOpenMenu = !this.isOpenMenu;
@@ -58,13 +62,19 @@ export class MeetupComponent implements OnInit {
   }
 
   onDeleteJoiningMeetup() {
-    const isConfirmed = confirm('Вы уверены, что хотите удалить данный митап?');
+    const isConfirmed = confirm('Вы уверены, что хотите отписаться от митапа?');
     if (isConfirmed) {
       if (this.authService.user?.id) {
         this.meetupService.deleteJoiningMeetup({ idMeetup: this.meetup.id, idUser: this.authService.user.id }).subscribe(data => {
           this.meetup = data;
-        })
+          if (data?.users?.length) {
+            this.isJoined = data?.users?.length > 0;
+          }
+
+        });
+
       } else return;
+
     } else return;
   }
 
@@ -72,13 +82,21 @@ export class MeetupComponent implements OnInit {
     if (this.authService.user?.id) {
       this.meetupService.joinMeetup({ idMeetup: this.meetup.id, idUser: this.authService.user?.id }).subscribe(data => {
         this.meetup = data;
-        console.log('data:', data);
+        if (data?.users?.length) {
+          this.isJoined = data.users?.length > 0;
+        }
+
       })
     } else return;
   }
 
   onDeleteMeetup() {
-    this.meetupService.onClearMeetup(this.meetup.id);
+    //this.meetupService.updateSubject.next(this.meetup.id);
+    return this.meetupService.deleteMeetup(this.meetup.id)
+      .subscribe(data => {
+        console.log('id', data);
+        return this.meetupService.deleteSubject.next(data);
+      });
   }
 
   // onUpdateMeetup() {

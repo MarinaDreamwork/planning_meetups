@@ -1,5 +1,5 @@
 <form [formGroup]="creationMeetupForm" (ngSubmit)="onSubmit()" class="form">
-	<h2>Создание митапа:</h2>
+	<h2>{{title}}</h2>
 	<div>
 		<mat-form-field class="half-width">
 			<mat-label>Название:</mat-label>
@@ -80,6 +80,6 @@
 		</mat-form-field>
 	</div>
 	<div>
-		<button type="submit" [disabled]="creationMeetupForm.invalid">Создать митап</button>
+		<button type="submit" [disabled]="creationMeetupForm.invalid">{{buttonDescription}}</button>
 	</div>
 </form>
