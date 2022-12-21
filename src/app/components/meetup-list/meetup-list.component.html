@@ -1,22 +1,37 @@
-<div>
-	<!-- <p *ngIf="isLoadingMeetups; else dataMeetings">is loading...</p> -->
-	<div class="input-filter-wrapper">
-		<input [(ngModel)]="filteredValue" type='text' class="input_filter"
-			placeholder="Поиск по названию, описанию или автору" />
-		<p>
-			<span>Сортировка по дате</span>
-			<mat-icon *ngIf="sortedBy === 'asc'" (click)="toggleSort()">keyboard_arrow_down</mat-icon>
-			<mat-icon *ngIf="sortedBy === 'desc'" (click)="toggleSort()">keyboard_arrow_up</mat-icon>
-		</p>
-	</div>
-
-	<div *ngIf="myMeetups">
-		<app-meetup *ngFor="let meetup of myMeetups | sort:sortedBy |filter:filteredValue" [meetup]="meetup"></app-meetup>
-	</div>
-	<div *ngIf="!myMeetups">
-		<app-meetup *ngFor="let meetup of meetups | sort:sortedBy | filter:filteredValue" [meetup]="meetup"></app-meetup>
-	</div>
-	<div class="button-create-meetup-wrapper">
-		<button mat-raised-button color="primary" routerLink="/meetups/my_meetups/creation">Создать митап</button>
-	</div>
+<div *ngIf="isLoadingMeetups; else dataLoaded" class="spinner-wrapper">
+	<mat-spinner diameter="50"></mat-spinner>
 </div>
+<ng-template #dataLoaded>
+	<div>
+		<div class="input-filter-wrapper">
+			<form [formGroup]="searchForm">
+				<input formControlName="filteredValue" type='text' class="input_filter"
+					placeholder="Поиск по названию, описанию или автору" />
+			</form>
+		</div>
+
+
+		<!-- *ngIf="myMeetups" -->
+		<div>
+			<app-meetup *ngFor="let meetup of meetupsForUI | paginate:currentPage" [meetup]="meetup"></app-meetup>
+		</div>
+		<!-- <div *ngIf="!myMeetups">
+			<app-meetup *ngFor="let meetup of (filteredMeetups || meetups) | sort:sortedBy | paginate: currentPage"
+				[meetup]="meetup"></app-meetup>
+		</div> -->
+		<div class="button-create-meetup-wrapper">
+			<button mat-raised-button color="primary" routerLink="/meetups/my_meetups/creation">Создать митап</button>
+		</div>
+	</div>
+	<!--pagination-->
+	<div class="pagination-wrapper">
+		<nav>
+			<ul>
+				<li>
+					<a *ngFor="let page of pages" (click)="onChoosePage(page)"
+						[ngClass]="{activePage: page === currentPage}">{{page}}</a>
+				</li>
+			</ul>
+		</nav>
+	</div>
+</ng-template>

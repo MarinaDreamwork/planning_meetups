@@ -1,3 +1,9 @@
+.spinner-wrapper {
+	display: flex;
+	justify-content: center;
+	margin: 30px;
+}
+
 .button-create-meetup-wrapper {
 	display: flex;
 	justify-content: flex-end;
@@ -25,5 +31,31 @@ input {
 }
 
 .input_filter {
-	padding: 5px;
+	width: 300px;
+	padding: 10px;
+	margin-right: 20px;
 }
+
+.pagination-wrapper {
+	display: flex;
+	justify-content: center;
+}
+.pagination-wrapper li {
+	
+	padding: 3px;
+	margin: 5px;
+}
+.pagination-wrapper a {
+	background: rgb(87, 87, 241);
+	padding: 10px;
+	margin: 10px;
+	color: white;
+	font-weight: 700;
+	cursor: pointer;
+}
+
+li .activePage {
+	background: rgb(36, 2, 92);
+	box-shadow: 1px 1px 1px rgb(36, 2, 92);
+}
+

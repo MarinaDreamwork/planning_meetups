@@ -10,7 +10,7 @@ import { UserService } from 'src/app/services/user.service';
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent implements OnInit, DoCheck {
-  isAdmin = false;
+  isAdmin: boolean | undefined = false;
 
   constructor(
     public authService: AuthService,
@@ -20,7 +20,8 @@ export class HeaderComponent implements OnInit, DoCheck {
   }
 
   ngDoCheck(): void {
-    this.isAdmin = this.router.url.includes('admin_dashboard');
+    this.isAdmin = this.authService.admin;
+    //this.router.url.includes('admin_dashboard');
   }
 
   onLogout() {

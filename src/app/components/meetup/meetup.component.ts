@@ -94,7 +94,8 @@ export class MeetupComponent implements OnInit {
     //this.meetupService.updateSubject.next(this.meetup.id);
     return this.meetupService.deleteMeetup(this.meetup.id)
       .subscribe(data => {
-        console.log('id', data);
+        console.log('data from delete', data);
+        this.router.navigate(['/meetups/all_meetups'])
         return this.meetupService.deleteSubject.next(data);
       });
   }

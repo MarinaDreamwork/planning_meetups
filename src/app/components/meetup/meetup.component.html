@@ -34,7 +34,7 @@
 		</div>
 	</div>
 	<div class='meetup-info_author-info'>
-		<p><img class='icon' src="/assets/user-icon.png" /> <span> {{meetup.owner.fio}}</span></p>
+		<p><img class='icon' src="/assets/user-icon.png" /> <span> {{meetup?.owner?.fio}}</span></p>
 
 		<div>
 			<button [disabled]="isCompleted" *ngIf="!fullDetailed" (click)="onToggleOptions()">&#9660;</button>

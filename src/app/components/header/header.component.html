@@ -10,10 +10,10 @@
 	</div>
 	<nav class="meetups-nav">
 		<ul>
-			<li>
+			<li *ngIf="authService.user">
 				<a class="meetups-nav_item" routerLink='meetups/all_meetups' routerLinkActive="active">Все митапы</a>
 			</li>
-			<li>
+			<li *ngIf="authService.user">
 				<a class="meetups-nav_item" routerLink="/meetups/my_meetups" routerLinkActive="active">Мои митапы</a>
 			</li>
 			<li *ngIf="isAdmin">

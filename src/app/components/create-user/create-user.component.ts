@@ -4,6 +4,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { AuthService } from 'src/app/services/auth.service';
 import { RolesService } from 'src/app/services/roles.service';
 import { UserService } from 'src/app/services/user.service';
+import { Role, User } from '../meetup/user.model';
 
 @Component({
   selector: 'app-create-user',
@@ -12,13 +13,17 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class CreateUserComponent implements OnInit {
   creationUserForm!: FormGroup<{
-    fio: FormControl<string | null>,
-    email: FormControl<string | null>,
-    password: FormControl<string | null>,
-    roles: FormControl<string[] | null>
-  }>
+    fio: FormControl<any>,
+    email: FormControl<any>,
+    password: FormControl<any>,
+    roles: FormControl<any>
+  }>;
+
   userId!: number | null;
   roles = ['ADMIN', 'USER'];
+  //user!: User;
+  isUpdate = false;
+
 
   constructor(
     private fBuilder: FormBuilder,
@@ -29,14 +34,28 @@ export class CreateUserComponent implements OnInit {
     private userService: UserService) { }
 
   ngOnInit() {
-    const userId = this.route.snapshot?.params['id'];
-    this.userId = userId;
-    // this.rolesService.fetchAllRoles().subscribe(roles => {
-    //   if (this.roles) {
-    //     this.roles = roles
-    //   }
-    // })
-    if (userId) {
+    this.userId = this.route.snapshot?.params['id'];
+
+
+    if (this.userId) {
+      this.isUpdate = true;
+      this.userService.getUserById(this.userId).subscribe(user => {
+        const roles = user[0].roles?.map(role => {
+          return role.name;
+        });
+        console.log('roles', roles);
+        console.log('user', user);
+        this.creationUserForm = this.fBuilder.group({
+          fio: [`${user[0].fio}`],
+          email: [user[0].email],// [Validators.required, Validators.email]]),
+          password: [user[0].password],// Validators.required]),
+          roles: [roles]
+        })
+      })
+
+
+      //const user = this.userList.getUserById(this.userId)
+      //console.log('user from create/update', user);
       // get userById && initial value of that user
     }
     this.creationUserForm = this.fBuilder.group({
@@ -108,10 +127,20 @@ export class CreateUserComponent implements OnInit {
     } else {
       if (email) {
         const updatedUser = this.userService.updateUser({ email, password, fio, id: this.userId }).subscribe(updatedUser => {
-          console.log('updUser', updatedUser);
-          return this.authService.createUserSubject.next(updatedUser)
+          this.userService.fetchAllUsers();
+          if (roles?.length && roles?.length === 1 && this.userId) {
+            // распарсим и отправим put /user/role body {name: roles[0], userId: user.id}
+            console.log('roles in update', roles);
+            return this.userService.addRole({ name: roles[0], userId: this.userId }).subscribe(data => console.log('add role', data))
+          } else if (roles?.length && roles?.length > 1 && this.userId) {
+
+            return this.userService.addRoles({ names: roles!, userId: this.userId }).subscribe(data => {
+              console.log('add rolES', data);
+            })
+          }
+          return this.userService.updatedUserSubject.next(updatedUser)
         });
-        this.router.navigate(['/users']);
+        this.router.navigate(['/admin_dashboard/users']);
         return updatedUser;
       } else return;
     }

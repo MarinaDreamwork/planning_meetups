@@ -11,6 +11,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 	cursor: pointer;
 }
 
+body > * {
+  flex-shrink: 0;
+}
+
+
 li {
 	list-style-type: none;
 }

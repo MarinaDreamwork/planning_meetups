@@ -1,0 +1,23 @@
+@import '../../../styles.scss';
+
+section {
+	background: $grey;
+	border-radius: 20px;
+	box-shadow: 3px -4px 4px grey;
+	border: 1px solid $white;
+	padding: 30px;
+	margin: 30px;
+}
+
+h2{
+	text-align: center;
+	padding: 20px;
+}
+span {
+	font-weight: bold;
+	color: $white;
+}
+
+li {
+	list-style-type: disc;
+}
