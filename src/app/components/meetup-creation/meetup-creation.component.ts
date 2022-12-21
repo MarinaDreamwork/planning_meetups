@@ -180,18 +180,15 @@ export class MeetupCreationComponent implements OnInit {
       const updatedData = this.meetupService.updateMeetup(this.idParam, updatedFormData).subscribe(elem => {
         return this.meetupService.updateSubject.next(elem);
       });
-      this.router.navigate(['/meetups/my_meetups']);
+      this.router.navigate(['/meetups/all_meetups']);
       return updatedData;
 
     } else {
-      const addedData = this.meetupService.addMeetup(updatedFormData).subscribe((data: Meetup) => {
+      this.meetupService.addMeetup(updatedFormData).subscribe((data: Meetup) => {
         console.log('data from server', data);
         return this.meetupService.createSubject.next(data)
       });
-      //
-      this.router.navigate(['/meetups/all_meetups']);
-      console.log('added', addedData);
-      return addedData;
+      return this.router.navigate(['/meetups/all_meetups']);
     }
 
 

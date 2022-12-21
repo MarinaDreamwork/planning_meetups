@@ -17,6 +17,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
+import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { IntroComponent } from './components/intro/intro.component';
 import { MeetupCreationComponent } from './components/meetup-creation/meetup-creation.component';
 import { CorrectWordEndingPipe } from './pipes/correct-word-ending';
@@ -26,6 +27,7 @@ import { FilterPipe } from './pipes/filter.pipe';
 import { SortPipe } from './pipes/sort.pipe';
 import { AdminDashboardComponent } from './components/admin-dashboard/admin-dashboard.component';
 import { RolesComponent } from './components/roles/roles.component';
+import { PaginatePipe } from './pipes/paginate.pipe';
 
 @NgModule({
   declarations: [
@@ -44,6 +46,7 @@ import { RolesComponent } from './components/roles/roles.component';
     SortPipe,
     AdminDashboardComponent,
     RolesComponent,
+    PaginatePipe,
   ],
   imports: [
     BrowserModule,
@@ -55,7 +58,8 @@ import { RolesComponent } from './components/roles/roles.component';
     MatInputModule,
     MatButtonModule,
     MatSelectModule,
-    MatIconModule
+    MatIconModule,
+    MatProgressSpinnerModule
   ],
   providers: [AuthService, {
     provide: HTTP_INTERCEPTORS,

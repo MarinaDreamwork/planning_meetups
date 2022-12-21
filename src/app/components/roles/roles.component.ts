@@ -13,10 +13,17 @@ export class RolesComponent implements OnInit {
   openForm = false;
   updateForm = false;
   updatedId: number | null = null;
+  isLoadingRoles!: boolean;
+
   constructor(private rolesService: RolesService) { }
 
   ngOnInit() {
+    this.rolesService.isLoadingRoles.subscribe(loader => {
+      this.isLoadingRoles = loader;
+    });
+
     this.rolesService.fetchAllRoles().subscribe(roles => {
+      this.rolesService.isLoadingRoles.next(false);
       console.log('rol', roles);
       this.roles = roles;
     });
@@ -45,7 +52,15 @@ export class RolesComponent implements OnInit {
         } else return;
       })
     })
+
+    this.rolesService.reloadRolesData.subscribe(value => {
+      this.rolesService.isLoadingRoles.next(false);
+      this.roles = value;
+      console.log('roles from reloading', value);
+    })
+    this.rolesService.loadRolesData();
   }
+
 
   toggleOpenForm() {
     return this.openForm = !this.openForm;

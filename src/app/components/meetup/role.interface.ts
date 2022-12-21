@@ -6,7 +6,7 @@ export interface IRole {
 	UserRole: IUserRole
 }
 
-interface IUserRole {
+export interface IUserRole {
 	id: number;
 	userId: number;
 	roleId: number;

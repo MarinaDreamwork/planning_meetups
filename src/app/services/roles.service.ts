@@ -1,8 +1,9 @@
-import { Subject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { environment, IEnvironment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { UserRole } from '../components/meetup/user.model';
+import { IRole } from '../components/meetup/role.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -12,10 +13,23 @@ export class RolesService {
   rolesSubject = new Subject<{ name: string }>();
   updateRoleSubject = new Subject<{ oldName: string, newName: string }>();
   deleteRoleSubject = new Subject<{ name: string }>();
+  isLoadingRoles = new BehaviorSubject<boolean>(false);
+  reloadRolesData = new Subject<IRole[]>();
+  timerId: any;
 
   constructor(private http: HttpClient) { }
 
+  loadRolesData() {
+    this.timerId = setInterval(() => {
+      return this.fetchAllRoles().subscribe(value => {
+        this.isLoadingRoles.next(false);
+        console.log('value from roles data', value);
+      })
+    }, 20000);
+  }
+
   fetchAllRoles() {
+    this.isLoadingRoles.next(true);
     return this.http.get<{ id: number, name: string }[]>(this.rolesUrl);
   }
   addRole(newRole: { name: string }) {

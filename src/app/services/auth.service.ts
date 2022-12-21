@@ -1,5 +1,5 @@
 import { environment, IEnvironment } from './../../environments/environment';
-import { Injectable } from '@angular/core';
+import { Injectable, OnInit } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { User } from '../components/meetup/user.model';
 import { Router } from '@angular/router';
@@ -9,7 +9,7 @@ import { ICurrentUser, IRole } from '../components/meetup/role.interface';
 import { Subject } from 'rxjs';
 
 @Injectable()
-export class AuthService {
+export class AuthService implements OnInit {
   authUrl: IEnvironment['apiUrl'] = `${environment.apiUrl}/auth`;
   isAuth = false;
   isAdmin = false;
@@ -17,7 +17,22 @@ export class AuthService {
   error = new Subject<string>();
   createUserSubject = new Subject();
 
+
   constructor(private http: HttpClient, private router: Router, private localStorageService: LocalStorageService, private userService: UserService) { }
+
+  ngOnInit() {
+    console.log('ghbdtn');
+    if (this.user) {
+      //const user = this.parseToken(this.localStorageService.getToken());
+      this.isAdmin = this.checkIsAdmin(this.user.roles) ? true : false;
+      this.user?.roles.filter(role => {
+        console.log('role', role);
+        return this.isAdmin = role.name.includes('ADMIN')
+      });
+      console.log('this.isAdmin', this.isAdmin);
+    }
+
+  }
 
   login(email: User['email'], password: User['password']) {
     return this.http.post<{ token: string }>(`${this.authUrl}/login`, {
@@ -83,6 +98,14 @@ export class AuthService {
       const user = this.parseToken(token);
       return user;
     } else return null;
+  }
+
+  get admin(): boolean | undefined {
+    const token = this.localStorageService.getToken();
+    if (token) {
+      const user = this.parseToken(token);
+      return this.checkIsAdmin(user.roles);
+    } else return;
   }
 
   logout() {
